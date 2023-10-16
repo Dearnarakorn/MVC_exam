@@ -1,0 +1,32 @@
+    65050446 
+    นรากรณ์ดีเย็น
+    ข้อ 2
+
+    view ใช้ java gui สืบการทำงานจาก JFame โดยจะประกอบด้วย
+        - ช่องรับข้อมูล Code(MOML) เพื่อให้ user กรอกข้อมูล 
+        - ช่องรับ Q(selectQ) เพื่อให้ user กรอกข้อมูลว่าต้องการคำตอบของ Q4 หรือ Q5
+        - OK(ok) เพื่อส่งให้ control รับทราบว่า user กรอกข้อมูลครบแล้ว และให้ control ทำงาน
+        - ช่อง output(ANS) สำหรับแสดงผล output ที่รับมากจาก control
+
+    control เป็นตัวเชื่อมกับ view และ model โดยใน class control จะมี class Listener ที่
+        implement ActionListener เชื่อมกับปุ่ม OK ซึ่งคลาสนี้จะทำงานเมื่อกดปุ่ม OK จาก view 
+        การทำงานขะเป็นจากการเช็ค Q จาก view ว่าเป็น Q ไหน หาก Q เป็น 4 จะเป็นใช้ method CalculateQ4
+        หากเป็น 5 method CalculateQ5 จาก model ส่งข้อมูล Code จาก view และ ส่ง output ที่ได้จาก model 
+        ให้ view และหากไม่ตรงขึ้นเรียก method จาก view เพื่อขึ้นข้อความบอก user ว่า input Q ผิด 
+
+    model รับข้อมูลจาก control มาคิดแล้วส่งกลับไปให้ control อีกที
+        โดยหากรับข้อมูล Q จาก control เป็น 4 จะเรียกใช้ method CalculateQ4 ส่งข้อมูลให้ processLineq4 
+        โดยใช้ pattern เก็บลักษณะ tag และ matcher หา tag ใน input จาก control หากไม่เจอก็คือ ไม่มี tag 
+        และหากเจอคือ มี tag แล้วนำไปเพิ่มใน output เมื่อจบการทำงาน จะส่ง output ให้กับ control
+        และหากรับข้อมูล Q จาก control เป็น 5 จะเรียกใช้ method CalculateQ5 ส่งข้อมูลให้ทีละบรรทัด 
+        processLineq5 โดยใช้ pattern เก็บลักษณะ tag และ matcher หา tag ใน input จาก control หากไม่เจอก็คือ ไม่มี tag 
+        และหากเจอคือ มี tag แล้วนำไปเพิ่มใน output เมื่อจบการทำงาน จะส่ง output ให้กับ control
+
+        เมื่อ control รับข้อมูลจาก method CalculateQ4 หรือ CalculateQ5 ก็จะส่งข้อมูลให้กับ view เพื่อนำไปแสดงผลอีกที
+
+
+    สรุปคือ
+
+        view -ส่ง MOML, selectQ, ok-> control -ส่ง MOML, selectQ-> model
+        model -ส่ง ans-> control -ส่ง ans-> view
+
